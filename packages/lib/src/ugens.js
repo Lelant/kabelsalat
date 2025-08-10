@@ -640,6 +640,7 @@ export class MidiIn extends AudioNode {
   noteOn(note, velocity) {
     if (velocity > 0) {
       this.note = note;
+      this.velocity = velocity;
       this.freq = 2 ** ((note - 69) / 12) * 440;
       this.gateState = "pretrig";
     } else {

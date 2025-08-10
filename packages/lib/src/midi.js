@@ -76,6 +76,7 @@ export function parseMidiMessage(msg) {
   if (msgType == 0x90 && msg.length == 3) {
     let note = msg[1];
     let velocity = msg[2];
+    velocity = (velocity / 127) * 2 - 1; // to bipolar
     return { type: "NOTE_ON", channel, note, velocity };
   }
 
