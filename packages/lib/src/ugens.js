@@ -687,6 +687,23 @@ export class MidiIn extends AudioNode {
         assert(false);
     }
   }
+
+  getVelocity() {
+    switch (this.gateState) {
+      case "pretrig":
+        this.gateState = "on";
+        return 0;
+
+      case "on":
+        return this.velocity;
+
+      case "off":
+        return this.velocity;
+
+      default:
+        assert(false);
+    }
+  }
 }
 
 /**
@@ -711,6 +728,17 @@ export class MidiFreq extends MidiIn {
   update(channel) {
     this.channel = channel;
     return this.getFreq();
+  }
+}
+
+export class MidiVelocity extends MidiIn {
+  constructor(id, state, sampleRate, send) {
+    super(id, state, sampleRate, send);
+    this.type = "midivelocity";
+  }
+  update(channel) {
+    this.channel = channel;
+    return this.getVelocity();
   }
 }
 
